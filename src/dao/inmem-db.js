@@ -60,9 +60,46 @@ const database = {
             // met het toegevoegde item als argument, of null als er een fout is opgetreden
             callback(null, item)
         }, this._delayTime)
-    }
+    },
 
     // Voeg zelf de overige database functionaliteit toe
+    update(id, item, callback) {
+        setTimeout(() => {
+            console.log('Updating user with id:', id)
+            console.log('Current data:', this._data)
+
+            const index = this._data.findIndex(
+                (item) => item.id === parseInt(id)
+            )
+
+            if (index === -1) {
+                callback({ message: `Error: id ${id} does not exist!` }, null)
+            } else {
+                this._data[index] = item
+                console.log('Data after update:', this._data)
+                callback(null, { message: `User with id ${id} updated.` })
+            }
+        }, this._delayTime)
+    },
+
+    delete(id, callback) {
+        setTimeout(() => {
+            console.log('Deleting user with id:', id)
+            console.log('Current data:', this._data)
+
+            const index = this._data.findIndex(
+                (item) => item.id === parseInt(id)
+            )
+
+            if (index === -1) {
+                callback({ message: `Error: id ${id} does not exist!` }, null)
+            } else {
+                this._data.splice(index, 1)
+                console.log('Data after deletion:', this._data)
+                callback(null, { message: `User with id ${id} deleted.` })
+            }
+        }, this._delayTime)
+    }
 }
 
 module.exports = database
