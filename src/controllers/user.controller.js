@@ -1,5 +1,6 @@
 const userService = require('../services/user.service')
 const userRoutes = require('../routes/user.routes')
+const logger = require('../util/logger')
 
 let userController = {
     create: (req, res, next) => {
@@ -15,6 +16,7 @@ let userController = {
             })
         }
 
+        logger.info('create user', user.firstName, user.lastName)
         userService.create(user, (error, success) => {
             if (error) {
                 return next({
@@ -34,6 +36,7 @@ let userController = {
     },
 
     getAll: (req, res, next) => {
+        logger.trace('getAll')
         userService.getAll((error, success) => {
             if (error) {
                 return next({
@@ -54,6 +57,7 @@ let userController = {
 
     getById: (req, res, next) => {
         const userId = req.params.userId
+        logger.trace('userController: getById', userId)
         userService.getById(userId, (error, success) => {
             if (error) {
                 return next({
