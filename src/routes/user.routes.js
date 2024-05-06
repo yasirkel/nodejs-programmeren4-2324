@@ -2,6 +2,7 @@ const express = require('express')
 const assert = require('assert')
 const chai = require('chai')
 chai.should()
+const { checkToken } = require('../middleware/auth');
 const router = express.Router()
 const userController = require('../controllers/user.controller')
 const logger = require('../util/logger')
@@ -80,12 +81,14 @@ const validateUserCreateChaiExpect = (req, res, next) => {
     }
 }
 
+
 // Userroutes
 router.post('/api/user', validateUserCreateChaiExpect, userController.create)
-router.get('/api/user', userController.getAll)
+router.get('/api/users', userController.getAll)
 router.get('/api/user/:userId', userController.getById)
+router.post('/api/login', userController.loginUser)
 
-router.put('/api/users/:userId', userController.update)
-router.delete('/api/users/:userId', userController.delete)
+router.put('/api/user/:userId', userController.update)
+router.delete('/api/user/:userId', userController.delete)
 
 module.exports = router

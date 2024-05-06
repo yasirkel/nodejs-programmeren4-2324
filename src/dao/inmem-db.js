@@ -12,14 +12,16 @@ const database = {
             id: 0,
             firstName: 'Hendrik',
             lastName: 'van Dam',
-            emailAdress: 'hvd@server.nl'
+            emailAdress: 'hvd@server.nl',
+            password: 'wachtwoord1'
             // Hier de overige velden uit het functioneel ontwerp
         },
         {
             id: 1,
             firstName: 'Marieke',
             lastName: 'Jansen',
-            emailAdress: 'm@server.nl'
+            emailAdress: 'm@server.nl',
+            password: 'wachtwoord2'
             // Hier de overige velden uit het functioneel ontwerp
         }
     ],
@@ -99,7 +101,25 @@ const database = {
                 callback(null, { message: `User with id ${id} deleted.` })
             }
         }, this._delayTime)
-    }
+    },
+
+    findByEmail(email, callback) { 
+        setTimeout(() => {
+            console.log('Finding user by email:', email)
+            console.log('Current data:', this._data)
+
+            const user = this._data.find(
+                (item) => item.emailAddress === email
+            )
+
+            if (!user) {
+                callback({ message: `Error: email ${email} does not exist!` }, null)
+            } else {
+                console.log('User found:', user)
+                callback(null, user)
+            }
+        }, this._delayTime)
+    },
 }
 
 module.exports = database

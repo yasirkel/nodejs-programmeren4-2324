@@ -54,7 +54,6 @@ const userService = {
                 callback(err, null)
             } else {
                 callback(null, {
-                    message: `User with id ${userId} deleted.`,
                     data: data
                 })
             }
@@ -72,7 +71,20 @@ const userService = {
                 })
             }
         })
-    }
+    },
+
+    findByEmail: (email, callback) => { 
+        database.findByEmail(email, (err, data) => {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, {
+                    message: `Found user with email ${email}.`,
+                    data: data
+                })
+            }
+        })
+    },
 }
 
 module.exports = userService
