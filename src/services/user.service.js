@@ -1,10 +1,10 @@
-const database = require('../dao/inmem-db')
+const database = require('../dao/mysql-db')
 const logger = require('../util/logger')
 
 const userService = {
     create: (user, callback) => {
         logger.info('create user', user)
-        database.add(user, (err, data) => {
+        database.addUser(user, (err, data) => {
             if (err) {
                 logger.info(
                     'error creating user: ',
